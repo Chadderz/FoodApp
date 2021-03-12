@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.FaceDetector;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -18,7 +17,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,11 +44,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //TESTING STUFF
+        Intent intent = new Intent(MainActivity.this, FoodFeed.class);
+        startActivity(intent);
+
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         FacebookSdk.getApplicationContext();
 
         textViewUser = findViewById(R.id.text_user);
-        mLogo = findViewById(R.id.imageView);
+        mLogo = findViewById(R.id.imgUser);
         loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile");
         mCallbackManger = CallbackManager.Factory.create();
@@ -109,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "sign in with credential: successful");
                     FirebaseUser user = mFirebaseAuth.getCurrentUser();
                     updateUI(user);
-                    Intent intent = new Intent(MainActivity.this, RecipeFeed.class);
+                    Intent intent = new Intent(MainActivity.this, FoodFeed.class);
                     startActivity(intent);
                 }else {
                     Log.d(TAG, "sign in with credential: failure", task.getException());
