@@ -20,4 +20,10 @@
         android:clickable="false"
         app:layout_anchor="@+id/bottomAppBar"
         app:layout_anchorGravity="center" />
+
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log Out" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

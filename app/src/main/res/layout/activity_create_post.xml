@@ -7,74 +7,126 @@
     tools:context=".CreatePost">
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="109dp"
-        android:layout_height="26dp"
-        android:text="Rating: %"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="387dp" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="109dp"
-        android:layout_height="26dp"
-        android:text="Rating: %"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="429dp" />
-
-    <TextView
-        android:id="@+id/txtName"
+        android:id="@+id/textRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Name: %"
-        tools:layout_editor_absoluteX="226dp"
-        tools:layout_editor_absoluteY="163dp" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="52dp"
+        android:text="Overall Rating:"
+        app:layout_constraintBottom_toTopOf="@+id/txtTitle2"
+        app:layout_constraintEnd_toStartOf="@+id/txtOverallRating"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserNameText"
+        app:layout_constraintVertical_bias="0.466" />
+
+    <TextView
+        android:id="@+id/txtUserNameText"
+        android:layout_width="168dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="87dp"
+        android:text="User Name:"
+        app:layout_constraintBottom_toTopOf="@+id/txtOverallRating"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtInstructions"
+        android:layout_width="350dp"
+        android:layout_height="264dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="11dp"
+        android:gravity="top|left"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enter Recipe Instructions"
+        app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle2" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="124dp"
-        android:layout_height="131dp"
-        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="97dp" />
+        android:layout_width="95dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtTitle2"
+        app:layout_constraintEnd_toStartOf="@+id/txtUserNameText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRecipeTitle"
+        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="109dp"
-        android:layout_height="26dp"
-        android:text="Instructions:"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="267dp" />
-
-    <TextView
-        android:id="@+id/txtInstructions"
-        android:layout_width="306dp"
-        android:layout_height="94dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="293dp" />
+        android:id="@+id/txtOverallRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="52dp"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/txtTitle2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textRating"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserNameText" />
 
     <TextView
         android:id="@+id/txtTitle"
-        android:layout_width="308dp"
-        android:layout_height="56dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="26dp" />
+        android:layout_width="168dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="32dp"
+        android:text="Receipe Name:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="306dp"
-        android:layout_height="94dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="479dp" />
+        android:id="@+id/txtTitle2"
+        android:layout_width="168dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="207dp"
+        android:text="Receipe Instructions:"
+        app:layout_constraintBottom_toTopOf="@+id/txtInstructions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
-        android:id="@+id/btnRefresh"
+        android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="159dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="163dp"
+        android:layout_marginBottom="64dp"
         android:text="Submit"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="606dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtInstructions" />
+
+    <EditText
+        android:id="@+id/txtRecipeTitle"
+        android:layout_width="331dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="29dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enter Recipe Title"
+        app:layout_constraintBottom_toTopOf="@+id/txtUserNameText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

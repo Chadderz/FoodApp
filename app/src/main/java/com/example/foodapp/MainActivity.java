@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //TESTING STUFF
-        Intent intent = new Intent(MainActivity.this, FoodFeed.class);
-        startActivity(intent);
+//        Intent intent = new Intent(MainActivity.this, CreatePost.class);
+//        startActivity(intent);
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onSuccess" + error);
             }
         });
+
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if(user != null){
             textViewUser.setText(user.getDisplayName());
+
             if(user.getPhotoUrl() != null){
                 String photoUrl = user.getPhotoUrl().toString();
                 photoUrl = photoUrl + "?type=large";
@@ -139,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else {
-            textViewUser.setText("");
+            textViewUser.setText("No Name");
             mLogo.setImageResource(R.drawable.com_facebook_profile_picture_blank_portrait);
         }
     }
