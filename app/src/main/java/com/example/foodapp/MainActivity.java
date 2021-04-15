@@ -1,34 +1,29 @@
 package com.example.foodapp;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.squareup.picasso.Picasso;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,42 +33,120 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewUser;
     private ImageView mLogo;
     private LoginButton loginButton;
-    private AccessTokenTracker accessTokenTracker;
-    private static final String TAG = "FacebookAuthentication";
+ //   private AccessTokenTracker accessTokenTracker;
+   // private static final String TAG = "FacebookAuthentication";
     public Boolean validCredentials;
 
-    private Button signup, signin;
+    private DatabaseReference databaseUserRef;
+
+    Button signup, signin;
+
+    private TextView UserEmail, UserPassword;
+
+    public String Email, Password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        signup = findViewById(R.id.signup);
-        signin = findViewById(R.id.signin);
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        databaseUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
 
+        UserEmail = findViewById(R.id.txtUserEmail);
+        UserPassword = findViewById(R.id.txtPassword);
+
+        signup = findViewById(R.id.btnSignup);
+        signin = findViewById(R.id.btnSignin);
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validCredentials){
-                    startActivity(new Intent(MainActivity.this, CreatePost.class));
-                }
-                else {
-                    Toast.makeText(MainActivity.this, "Authentication Failed. Please enter correct credentials", Toast.LENGTH_SHORT).show();
-                }
+
+                CheckUserExists();
+                SignIn();
             }
         });
 
         signup.setOnClickListener(new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-            startActivity(new Intent(MainActivity.this, CreatePost.class));
+            SendUserToSignUp();
         }
-    });
+        });
     };
 
+    private void CheckUserExists() {
+        final String currentUserID = mFirebaseAuth.getCurrentUser().getUid();
+
+        databaseUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Checks if record is not in database
+                if (!snapshot.hasChild(currentUserID)){
+                    SendUserToSignUp();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void SendUserToSignUp() {
+        Intent setupIntent = new Intent(MainActivity.this, SignupActivity.class);
+        setupIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(setupIntent);
+        finish();
+    }
+
+    void SignIn(){
+        Email = UserEmail.getText().toString();
+        Password = UserPassword.getText().toString();
+
+        if(!Email.isEmpty() && !Password.isEmpty()){
+            mFirebaseAuth.signInWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(MainActivity.this, "You have successfully been authenticated!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent (MainActivity.this, FoodFeed.class));
+                        finish();
+
+                    }
+                    else {
+                        String taskMessage = task.getException().getMessage();
+                        Toast.makeText(MainActivity.this, "Error: " + taskMessage, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+
+    }
+    //Checks if user is already logged in and if so will take them to the feed page.
+//    @Override
+//    protected void onStart(){
+//        super.onStart();
+//
+//        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+//
+//        if(currentUser != null) {
+//            SendUserToFeed();
+//        }
+//    }
+
+    private void SendUserToFeed(){
+        //Getting Rid of intent flag so that when an authenticated user whos taken to the feed screen clicks back button on phone,
+        // they cannot return to the setup activity as the setup activity would have been removed from the stack.
+        Intent feedIntent = new Intent(MainActivity.this, FoodFeed.class);
+        feedIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(feedIntent);
+        finish();
+    }
 
 
 //onCreate method code /////////////////////////////////////////////////////

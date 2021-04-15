@@ -39,6 +39,7 @@ public class FoodFeed extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_feed);
 
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
 
         loginButton = findViewById(R.id.btnLogOut);
@@ -60,10 +61,24 @@ public class FoodFeed extends AppCompatActivity {
 
     }
     public void logout(){
-        AccessToken.setCurrentAccessToken(null);
-        if (LoginManager.getInstance() != null) {
-            LoginManager.getInstance().logOut();
-        }
-        startActivity(new Intent(FoodFeed.this, MainActivity.class));
+        mFirebaseAuth.signOut();
+        SendUserToSignin();
+    }
+//    @Override
+//    protected void onStart(){
+//        super.onStart();
+//
+//        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+//
+//        if(currentUser == null) {
+//            SendUserToSignin();
+//        }
+//    }
+
+    private void SendUserToSignin() {
+        Intent intent = new Intent(FoodFeed.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }

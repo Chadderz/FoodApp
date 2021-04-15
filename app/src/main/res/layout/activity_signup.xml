@@ -7,23 +7,24 @@
     tools:context=".SignupActivity">
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="101dp"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="101dp"
         android:layout_marginBottom="37dp"
+        android:editable="true"
         android:ems="10"
+        android:hint="Email"
         android:inputType="textPersonName"
-        android:text="Email"
-        app:layout_constraintBottom_toTopOf="@+id/name"
+        app:layout_constraintBottom_toTopOf="@+id/txtName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signuptext" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
@@ -31,15 +32,15 @@
         android:layout_marginEnd="101dp"
         android:layout_marginBottom="37dp"
         android:ems="10"
+        android:hint="Name"
         android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintBottom_toTopOf="@+id/txtPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/txtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="101dp"
@@ -47,15 +48,15 @@
         android:layout_marginEnd="101dp"
         android:layout_marginBottom="37dp"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPersonName"
-        android:text="Password"
-        app:layout_constraintBottom_toTopOf="@+id/reenterpassword"
+        app:layout_constraintBottom_toTopOf="@+id/txtReenterPass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
     <EditText
-        android:id="@+id/reenterpassword"
+        android:id="@+id/txtReenterPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="101dp"
@@ -63,13 +64,13 @@
         android:layout_marginEnd="101dp"
         android:layout_marginBottom="38dp"
         android:ems="10"
+        android:hint="Reenter Password"
         android:inputType="textPersonName"
-        android:text="Re-enter Password"
-        app:layout_constraintBottom_toTopOf="@+id/enter"
+        app:layout_constraintBottom_toTopOf="@+id/btnEnter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
 
     <TextView
         android:id="@+id/signuptext"
@@ -81,14 +82,14 @@
         android:layout_marginBottom="15dp"
         android:text="Sign Up"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintBottom_toTopOf="@+id/txtEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/enter"
+        android:id="@+id/btnEnter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="101dp"
@@ -100,5 +101,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reenterpassword" />
+        app:layout_constraintTop_toBottomOf="@+id/txtReenterPass" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

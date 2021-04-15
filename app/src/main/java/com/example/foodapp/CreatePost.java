@@ -48,29 +48,28 @@ public class CreatePost extends AppCompatActivity {
         rating = findViewById(R.id.txtOverallRating);
         submit = findViewById(R.id.btnSubmit);
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rootNode = FirebaseDatabase.getInstance();
-                UsersRef = rootNode.getReference("Recipe");
+//        submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                rootNode = FirebaseDatabase.getInstance();
+//                UsersRef = rootNode.getReference("Recipe");
+//
+//                String receipeTitle = title.getEditableText().toString();
+//                String receipeOverallRating = rating.getEditableText().toString();
+//                String receipeInstructions = instructions.getEditableText().toString();
 
-                String receipeTitle = title.getEditableText().toString();
-                String receipeOverallRating = rating.getEditableText().toString();
-                String receipeInstructions = instructions.getEditableText().toString();
+        //    PostHelper postHelper = new PostHelper(receipeTitle, receipeOverallRating, receipeInstructions, "0");
 
-                PostHelper postHelper = new PostHelper(receipeTitle, receipeOverallRating, receipeInstructions, "0");
-
-                UsersRef.child("1").setValue(postHelper);
-
-                Toast.makeText(CreatePost.this, "Posting Recipe", Toast.LENGTH_SHORT).show();
-
-                Intent intent2 = new Intent(CreatePost.this, FoodFeed.class);
-                startActivity(intent2);
+//                UsersRef.child("1").setValue(postHelper);
+//
+//                Toast.makeText(CreatePost.this, "Posting Recipe", Toast.LENGTH_SHORT).show();
+//
+//                Intent intent2 = new Intent(CreatePost.this, FoodFeed.class);
+//                startActivity(intent2);
 
 
-            }
-        });
-
+    }
+}
 
 //        //NEED TO SORT OUT WHY ValueEventListener doesnt think class is abstract.
 //        private void SubmittingDataToDatabase () {
@@ -92,7 +91,6 @@ public class CreatePost extends AppCompatActivity {
 //
 //
 //            });
-        }
-    }
+
 
 
