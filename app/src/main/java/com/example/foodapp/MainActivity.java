@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                CheckUserExists();
+                //This comentted out code causes a crash, find out what it is 
+               // CheckUserExists();
                 SignIn();
             }
         });

@@ -1,5 +1,6 @@
 package com.example.foodapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -22,17 +23,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+
 public class CreatePost extends AppCompatActivity {
 
     TextView title, instructions, rating;
     Button submit;
 
-    private String current_user_id;
+    private String current_user_id, postTitle, postInstructions, postRating, postRandomName, dbcurrentDate, dbcurrentTime;
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     FirebaseDatabase rootNode;
-    private DatabaseReference UsersRef;
+    private DatabaseReference databaseUserRef, databasePostRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,26 +54,75 @@ public class CreatePost extends AppCompatActivity {
         rating = findViewById(R.id.txtOverallRating);
         submit = findViewById(R.id.btnSubmit);
 
-//        submit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                rootNode = FirebaseDatabase.getInstance();
-//                UsersRef = rootNode.getReference("Recipe");
-//
-//                String receipeTitle = title.getEditableText().toString();
-//                String receipeOverallRating = rating.getEditableText().toString();
-//                String receipeInstructions = instructions.getEditableText().toString();
+        databaseUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        databasePostRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SavePost();
+            }
+        });
+    }
 
-        //    PostHelper postHelper = new PostHelper(receipeTitle, receipeOverallRating, receipeInstructions, "0");
+    private void SavePost() {
+        postTitle = title.getText().toString();
+        postInstructions = instructions.getText().toString();
+        postRating = rating.getText().toString();
 
-//                UsersRef.child("1").setValue(postHelper);
-//
-//                Toast.makeText(CreatePost.this, "Posting Recipe", Toast.LENGTH_SHORT).show();
-//
-//                Intent intent2 = new Intent(CreatePost.this, FoodFeed.class);
-//                startActivity(intent2);
+        Calendar calDate = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMMM-yyyy");
+        dbcurrentDate = currentDate.format(calDate.getTime());
+
+        Calendar calTime = Calendar.getInstance();
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+        dbcurrentTime = currentTime.format(calTime.getTime());
+
+        postRandomName = dbcurrentDate + dbcurrentTime;
+
+     databaseUserRef.child(current_user_id).addValueEventListener(new ValueEventListener() {
+         @Override
+         public void onDataChange(@NonNull DataSnapshot snapshot) {
+             if(snapshot.exists())
+             {
+                 String fullName = snapshot.child("Username").getValue().toString();
 
 
+                 HashMap postMap = new HashMap();
+                 postMap.put("userCreatorID", current_user_id);
+                 postMap.put("receipeTitle", postTitle);
+                 postMap.put("receipeInstruction", postInstructions);
+                 postMap.put("receipeRating", postRating);
+
+
+                 databasePostRef.child(current_user_id + postRandomName).updateChildren(postMap).addOnCompleteListener(new OnCompleteListener() {
+                     @Override
+                     public void onComplete(@NonNull Task task) {
+                         if(task.isSuccessful()){
+                             SendUserToMainActivity();
+                             Toast.makeText(CreatePost.this, "New post uploaded successfully", Toast.LENGTH_SHORT);
+                         }
+                         else
+                             Toast.makeText(CreatePost.this, "Post failed", Toast.LENGTH_SHORT);
+                     }
+                 });
+             }
+
+         }
+
+         @Override
+         public void onCancelled(@NonNull DatabaseError error) {
+
+         }
+     });
+    }
+
+    private void SendUserToMainActivity() {
+        //Getting Rid of intent flag so that when an authenticated user whos taken to the feed screen clicks back button on phone,
+        // they cannot return to the setup activity as the setup activity would have been removed from the stack.
+        Intent intent = new Intent(CreatePost.this, FoodFeed.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }
 
