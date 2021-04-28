@@ -70,7 +70,7 @@ public class CreatePost extends AppCompatActivity {
         postRating = rating.getText().toString();
 
         Calendar calDate = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMMM-yyyy");
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
         dbcurrentDate = currentDate.format(calDate.getTime());
 
         Calendar calTime = Calendar.getInstance();
@@ -89,9 +89,9 @@ public class CreatePost extends AppCompatActivity {
 
                  HashMap postMap = new HashMap();
                  postMap.put("userCreatorID", current_user_id);
-                 postMap.put("receipeTitle", postTitle);
-                 postMap.put("receipeInstruction", postInstructions);
-                 postMap.put("receipeRating", postRating);
+                 postMap.put("Title", postTitle);
+                 postMap.put("Instructions", postInstructions);
+                 postMap.put("overallRating", postRating);
 
 
                  databasePostRef.child(current_user_id + postRandomName).updateChildren(postMap).addOnCompleteListener(new OnCompleteListener() {

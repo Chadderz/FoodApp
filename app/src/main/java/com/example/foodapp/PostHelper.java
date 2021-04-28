@@ -1,24 +1,31 @@
 package com.example.foodapp;
 
 public class PostHelper {
-    String receipeName, overallRating, receipeInstructions, creatorID;
-
+    private String Instructions, Title, overallRating, userCreatorID;
 
     public PostHelper(){}
 
-    public PostHelper(String receipeName, String overallRating, String receipeInstructions, String creatorID){
-        this.receipeName = receipeName;
+    public PostHelper(String instructions, String title, String overallRating, String userCreatorID) {
+        Instructions = instructions;
+        Title = title;
         this.overallRating = overallRating;
-        this.receipeInstructions = receipeInstructions;
-        this.creatorID = creatorID;
+        this.userCreatorID = userCreatorID;
     }
 
-    public String getReceipeName() {
-        return receipeName;
+    public String getInstructions() {
+        return Instructions;
     }
 
-    public void setReceipeName(String receipeName) {
-        this.receipeName = receipeName;
+    public void setInstructions(String instructions) {
+        Instructions = instructions;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
     }
 
     public String getOverallRating() {
@@ -29,11 +36,12 @@ public class PostHelper {
         this.overallRating = overallRating;
     }
 
-    public String getReceipeInstructions() {
-        return receipeInstructions;
+    public String getUserCreatorID() {
+        return userCreatorID;
     }
 
-    public void setReceipeInstructions(String receipeInstructions) {
-        this.receipeInstructions = receipeInstructions;
+    public void setUserCreatorID(String userCreatorID) {
+        this.userCreatorID = userCreatorID;
     }
 }
+
