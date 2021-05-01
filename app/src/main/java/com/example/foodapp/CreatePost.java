@@ -29,10 +29,10 @@ import java.util.HashMap;
 
 public class CreatePost extends AppCompatActivity {
 
-    TextView title, instructions, rating;
+    TextView title, instructions, ingredients;
     Button submit;
 
-    private String current_user_id, postTitle, postInstructions, postRating, postRandomName, dbcurrentDate, dbcurrentTime;
+    private String current_user_id, postTitle, postInstructions, postRating, postRandomName, postIngredients, dbcurrentDate, dbcurrentTime;
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -51,7 +51,8 @@ public class CreatePost extends AppCompatActivity {
 
         title = findViewById(R.id.txtRecipeTitle);
         instructions = findViewById(R.id.txtInstructions);
-        rating = findViewById(R.id.txtOverallRating);
+        ingredients = findViewById(R.id.txtIngredients);
+
         submit = findViewById(R.id.btnSubmit);
 
         databaseUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -67,7 +68,8 @@ public class CreatePost extends AppCompatActivity {
     private void SavePost() {
         postTitle = title.getText().toString();
         postInstructions = instructions.getText().toString();
-        postRating = rating.getText().toString();
+        postRating = "0";
+        postIngredients = ingredients.getText().toString();
 
         Calendar calDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
@@ -84,15 +86,14 @@ public class CreatePost extends AppCompatActivity {
          public void onDataChange(@NonNull DataSnapshot snapshot) {
              if(snapshot.exists())
              {
-                 String fullName = snapshot.child("Username").getValue().toString();
-
+                 String fullName = snapshot.child("fullName").getValue().toString();
 
                  HashMap postMap = new HashMap();
                  postMap.put("userCreatorID", current_user_id);
-                 postMap.put("Title", postTitle);
-                 postMap.put("Instructions", postInstructions);
+                 postMap.put("title", postTitle);
+                 postMap.put("instructions", postInstructions);
                  postMap.put("overallRating", postRating);
-
+                 postMap.put("ingredients", postIngredients);
 
                  databasePostRef.child(current_user_id + postRandomName).updateChildren(postMap).addOnCompleteListener(new OnCompleteListener() {
                      @Override
@@ -125,27 +126,6 @@ public class CreatePost extends AppCompatActivity {
         finish();
     }
 }
-
-//        //NEED TO SORT OUT WHY ValueEventListener doesnt think class is abstract.
-//        private void SubmittingDataToDatabase () {
-//            UsersRef.child(current_user_id).addChildEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    if (dataSnapshot.exists()) {
-//                        if (dataSnapshot.exists()) {
-//                            String foodReceipe = dataSnapshot.child("Title").getValue().toString();
-//                            String instructions = dataSnapshot.child("Instructions").getValue().toString();
-//                        }
-//
-//                    }
-//                }
-
-//               // @Override
-//                public void OnCancelled(DatabaseError databaseError) {
-//                }
-//
-//
-//            });
 
 
 

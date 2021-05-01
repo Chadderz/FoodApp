@@ -1,15 +1,17 @@
 package com.example.foodapp;
 
 public class PostHelper {
-    private String Instructions, Title, overallRating, userCreatorID;
+    private String Instructions, Title, overallRating, userCreatorID, Ingredients;
 
     public PostHelper(){}
 
-    public PostHelper(String instructions, String title, String overallRating, String userCreatorID) {
+    public PostHelper(String instructions, String title, String overallRating, String userCreatorID, String ingredients) {
         Instructions = instructions;
         Title = title;
         this.overallRating = overallRating;
         this.userCreatorID = userCreatorID;
+        this.Ingredients = ingredients;
+
     }
 
     public String getInstructions() {
@@ -43,5 +45,14 @@ public class PostHelper {
     public void setUserCreatorID(String userCreatorID) {
         this.userCreatorID = userCreatorID;
     }
+
+    public String getIngredients() {
+        return Ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        Ingredients = ingredients;
+    }
 }
+
 

@@ -197,8 +197,8 @@ public class SignupActivity extends AppCompatActivity {
         databaseUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
 
         HashMap userMap = new HashMap();
-        userMap.put("Username", Name);
-        userMap.put("Password", Password);
+        userMap.put("fullName", Name);
+        //userMap.put("Password", Password);
         databaseUserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {

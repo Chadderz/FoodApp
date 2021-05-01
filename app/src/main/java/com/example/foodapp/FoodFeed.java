@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +35,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
+
+import okhttp3.internal.cache.DiskLruCache;
 
 public class FoodFeed extends AppCompatActivity {
     private Button loginButton;
@@ -46,7 +52,9 @@ public class FoodFeed extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private RecyclerView listOfPosts;
-    private DatabaseReference databasePostRef;
+    private DatabaseReference databasePostRef, databaseUserRef;
+
+    private String current_user_id, fullName;
 
 
     @Override
@@ -56,6 +64,9 @@ public class FoodFeed extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         databasePostRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+        databaseUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        current_user_id = mFirebaseAuth.getCurrentUser().getUid();
 
         loginButton = findViewById(R.id.btnLogOut);
         listOfPosts = findViewById(R.id.post_list);
@@ -64,8 +75,6 @@ public class FoodFeed extends AppCompatActivity {
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         listOfPosts.setLayoutManager(linearLayoutManager);
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -82,11 +91,29 @@ public class FoodFeed extends AppCompatActivity {
         });
 
 
+         databaseUserRef.child(current_user_id).addValueEventListener(new ValueEventListener() {
+             @Override
+             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                 if (snapshot.exists()){
+                     fullName = snapshot.child("fullName").getValue().toString();
+                 }
+             }
+
+             @Override
+             public void onCancelled(@NonNull DatabaseError error) {
+
+             }
+         });
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+
+
+
 
         FirebaseRecyclerOptions<PostHelper> options =
                 new FirebaseRecyclerOptions.Builder<PostHelper>()
@@ -98,10 +125,11 @@ public class FoodFeed extends AppCompatActivity {
                 {
             @Override
             protected void onBindViewHolder(@NonNull PostViewHolder holder, int position, @NonNull PostHelper model) {
-                holder.userID.setText(model.getUserCreatorID());
+                holder.userID.setText(fullName);
                 holder.instruction.setText(model.getInstructions());
                 holder.overRating.setText(model.getOverallRating());
                 holder.title.setText(model.getTitle());
+                holder.ingredient.setText(model.getTitle());
             }
 
             @NonNull
@@ -118,7 +146,7 @@ public class FoodFeed extends AppCompatActivity {
 
 
     public static class PostViewHolder extends  RecyclerView.ViewHolder{
-        TextView userID, instruction, overRating, title;
+        TextView userID, instruction, overRating, title, ingredient;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -127,6 +155,7 @@ public class FoodFeed extends AppCompatActivity {
             instruction = itemView.findViewById(R.id.post_instructions);
             overRating = itemView.findViewById(R.id.post_rating);
             title = itemView.findViewById(R.id.post_title);
+            ingredient = itemView.findViewById(R.id.post_ingredients);
         }
     }
 
