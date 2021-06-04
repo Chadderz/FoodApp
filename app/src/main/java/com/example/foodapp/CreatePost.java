@@ -12,11 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,10 +25,10 @@ import java.util.HashMap;
 
 public class CreatePost extends AppCompatActivity {
 
-    TextView title, instructions, rating;
+    TextView title, instructions, rating, ingredients;
     Button submit;
 
-    private String current_user_id, postTitle, postInstructions, postRating, postRandomName, dbcurrentDate, dbcurrentTime;
+    private String current_user_id, postTitle, postInstructions, postRating, postRandomName, dbcurrentDate, dbcurrentTime, postIngredients;
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -51,6 +47,7 @@ public class CreatePost extends AppCompatActivity {
 
         title = findViewById(R.id.txtRecipeTitle);
         instructions = findViewById(R.id.txtInstructions);
+        ingredients = findViewById(R.id.txtIngredients);
 
         submit = findViewById(R.id.btnSubmit);
 
@@ -67,7 +64,8 @@ public class CreatePost extends AppCompatActivity {
     private void SavePost() {
         postTitle = title.getText().toString();
         postInstructions = instructions.getText().toString();
-        postRating = rating.getText().toString();
+        postIngredients = ingredients.getText().toString();
+
 
         Calendar calDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
@@ -91,7 +89,8 @@ public class CreatePost extends AppCompatActivity {
                  postMap.put("userCreatorID", current_user_id);
                  postMap.put("Title", postTitle);
                  postMap.put("Instructions", postInstructions);
-                 postMap.put("overallRating", postRating);
+                 postMap.put("Ingredients", postIngredients);
+                 postMap.put("overallRating", "0");
                  postMap.put("userName", fullName);
                  postMap.put("date", dbcurrentDate);
                  postMap.put("time", dbcurrentTime);

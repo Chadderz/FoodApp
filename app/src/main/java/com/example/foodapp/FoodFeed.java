@@ -142,6 +142,7 @@ public class FoodFeed extends AppCompatActivity {
 
                 holder.userID.setText(model.getUserName());
                 holder.instruction.setText(model.getInstructions());
+                holder.ingredients.setText(model.getIngredients());
                 holder.overRating.setText("Rating: " + model.getOverallRating());
                 holder.title.setText(model.getTitle());
                 holder.date.setText("   " + model.getDate());
@@ -164,13 +165,14 @@ public class FoodFeed extends AppCompatActivity {
 
 
     public static class PostViewHolder extends  RecyclerView.ViewHolder{
-        TextView userID, instruction, overRating, title, date, time;
+        TextView userID, instruction, overRating, title, date, time, ingredients;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
 
             userID = itemView.findViewById(R.id.post_profile_name);
             instruction = itemView.findViewById(R.id.post_instructions);
+            ingredients = itemView.findViewById(R.id.post_ingredients);
             overRating = itemView.findViewById(R.id.post_rating);
             title = itemView.findViewById(R.id.post_title);
             date = itemView.findViewById(R.id.post_date);

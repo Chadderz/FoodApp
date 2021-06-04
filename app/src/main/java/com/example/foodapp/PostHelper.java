@@ -1,11 +1,11 @@
 package com.example.foodapp;
 
 public class PostHelper {
-    private String Instructions, Title, overallRating, userCreatorID, userName, date, time ;
+    private String Instructions, Title, overallRating, userCreatorID, userName, date, time, ingredients;
 
     public PostHelper(){}
 
-    public PostHelper(String instructions, String title, String overallRating, String userCreatorID, String userName, String date, String time) {
+    public PostHelper(String instructions, String title, String overallRating, String userCreatorID, String userName, String date, String time, String ingredients) {
         Instructions = instructions;
         Title = title;
         this.overallRating = overallRating;
@@ -13,6 +13,7 @@ public class PostHelper {
         this.userName = userName;
         this.date = date;
         this.time = time;
+        this.ingredients = ingredients;
     }
 
     public String getInstructions() {
@@ -69,6 +70,14 @@ public class PostHelper {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 }
 
