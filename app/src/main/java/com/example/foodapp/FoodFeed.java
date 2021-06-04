@@ -48,7 +48,7 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 public class FoodFeed extends AppCompatActivity {
-    private Button loginButton;
+
     private CallbackManager mCallbackManger;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -70,7 +70,7 @@ public class FoodFeed extends AppCompatActivity {
         databasePostRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         ref = FirebaseDatabase.getInstance().getReference();
 
-        loginButton = findViewById(R.id.btnLogOut);
+
         listOfPosts = findViewById(R.id.post_list);
         listOfPosts.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -87,12 +87,7 @@ public class FoodFeed extends AppCompatActivity {
                 startActivity(new Intent(FoodFeed.this, CreatePost.class));
             }
         });
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
-        });
+
 
         BottomNavigationView navView = findViewById(R.id.bottomAppBar);
         navView.setSelectedItemId(R.id.home);
@@ -180,15 +175,7 @@ public class FoodFeed extends AppCompatActivity {
         }
     }
 
-    public void logout(){
-        mFirebaseAuth.signOut();
-        SendUserToSignin();
-    }
 
-    private void SendUserToSignin() {
-        Intent intent = new Intent(FoodFeed.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-    }
+
+
 }
