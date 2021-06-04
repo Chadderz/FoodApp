@@ -51,7 +51,7 @@ public class CreatePost extends AppCompatActivity {
 
         title = findViewById(R.id.txtRecipeTitle);
         instructions = findViewById(R.id.txtInstructions);
-        rating = findViewById(R.id.txtOverallRating);
+
         submit = findViewById(R.id.btnSubmit);
 
         databaseUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -84,7 +84,7 @@ public class CreatePost extends AppCompatActivity {
          public void onDataChange(@NonNull DataSnapshot snapshot) {
              if(snapshot.exists())
              {
-                 String fullName = snapshot.child("Username").getValue().toString();
+                String fullName = snapshot.child("fullName").getValue().toString();
 
 
                  HashMap postMap = new HashMap();
@@ -92,6 +92,9 @@ public class CreatePost extends AppCompatActivity {
                  postMap.put("Title", postTitle);
                  postMap.put("Instructions", postInstructions);
                  postMap.put("overallRating", postRating);
+                 postMap.put("userName", fullName);
+                 postMap.put("date", dbcurrentDate);
+                 postMap.put("time", dbcurrentTime);
 
 
                  databasePostRef.child(current_user_id + postRandomName).updateChildren(postMap).addOnCompleteListener(new OnCompleteListener() {

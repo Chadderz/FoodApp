@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import com.facebook.login.LoginManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.facebook.AccessToken;
@@ -34,8 +37,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -47,6 +54,11 @@ public class FoodFeed extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private RecyclerView listOfPosts;
     private DatabaseReference databasePostRef;
+    private DatabaseReference databaseUserRef;
+    private DatabaseReference ref;
+
+    String userFullName;
+    String userFullNameUsingID = "No Name";
 
 
     @Override
@@ -56,6 +68,7 @@ public class FoodFeed extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         databasePostRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+        ref = FirebaseDatabase.getInstance().getReference();
 
         loginButton = findViewById(R.id.btnLogOut);
         listOfPosts = findViewById(R.id.post_list);
@@ -81,6 +94,33 @@ public class FoodFeed extends AppCompatActivity {
             }
         });
 
+        BottomNavigationView navView = findViewById(R.id.bottomAppBar);
+        navView.setSelectedItemId(R.id.home);
+
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.home:
+                        return true;
+                    case R.id.profileFood:
+                        startActivity(new Intent (getApplicationContext()
+                                , Profile.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.searchFood:
+                        startActivity(new Intent (getApplicationContext()
+                                , SearchPost.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+
+
+
 
     }
 
@@ -98,10 +138,14 @@ public class FoodFeed extends AppCompatActivity {
                 {
             @Override
             protected void onBindViewHolder(@NonNull PostViewHolder holder, int position, @NonNull PostHelper model) {
-                holder.userID.setText(model.getUserCreatorID());
+
+
+                holder.userID.setText(model.getUserName());
                 holder.instruction.setText(model.getInstructions());
-                holder.overRating.setText(model.getOverallRating());
+                holder.overRating.setText("Rating: " + model.getOverallRating());
                 holder.title.setText(model.getTitle());
+                holder.date.setText("   " + model.getDate());
+                holder.time.setText("   " + model.getTime());
             }
 
             @NonNull
@@ -117,8 +161,10 @@ public class FoodFeed extends AppCompatActivity {
     }
 
 
+
+
     public static class PostViewHolder extends  RecyclerView.ViewHolder{
-        TextView userID, instruction, overRating, title;
+        TextView userID, instruction, overRating, title, date, time;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -127,6 +173,8 @@ public class FoodFeed extends AppCompatActivity {
             instruction = itemView.findViewById(R.id.post_instructions);
             overRating = itemView.findViewById(R.id.post_rating);
             title = itemView.findViewById(R.id.post_title);
+            date = itemView.findViewById(R.id.post_date);
+            time = itemView.findViewById(R.id.post_time);
         }
     }
 
