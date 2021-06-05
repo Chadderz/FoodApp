@@ -35,9 +35,9 @@ public class SignupActivity extends AppCompatActivity {
 
     public Boolean validInput;
 
-    public String Email, Name, Password, ReenterPass;
+    public String Email, Name, Password, ReenterPass, Nickname;
 
-    private EditText  UserEmail,  UserFullName,  UserPassword,  UserReenterPassword;
+    private EditText  UserEmail,  UserFullName,  UserPassword,  UserReenterPassword, UserNickname;
     private Button EnterButton;
     private ImageButton selectImageButton;
 
@@ -61,6 +61,7 @@ public class SignupActivity extends AppCompatActivity {
         UserFullName = findViewById(R.id.txtName);
         UserPassword = findViewById(R.id.txtPassword);
         UserReenterPassword = findViewById(R.id.txtReenterPass);
+        UserNickname = findViewById(R.id.txtNickname);
        // selectImageButton = findViewById(R.id.imageButton);
         
         //userProfilePicRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
@@ -74,85 +75,16 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CreateAuthentication();
 
-                // SendUserToFeed();
-//                if (validInput){
-//                    startActivity(new Intent(SignupActivity.this, CreatePost.class));
-//                }
-//                else {
-//                    Toast.makeText(SignupActivity.this, "Please Enter valid information!", Toast.LENGTH_SHORT).show();
-//                }
             }
         });
-
-//        selectImageButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent photoGalleryIntenet = new Intent();
-//                photoGalleryIntenet.setAction(Intent.ACTION_GET_CONTENT);
-//                photoGalleryIntenet.setType("image/*");
-//                startActivityForResult(photoGalleryIntenet, Photo_Picked);
-//            }
-//        });
-
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-
-//        if (requestCode==Photo_Picked && resultCode==RESULT_OK && data!=null)
-//        {
-//            Uri ImageUri = data.getData();
-//
-//            CropImage.activity()
-//                    .setGuidelines(CropImageView.Guidelines.ON)
-//                    .setAspectRatio(1, 1).start(this);
-//        }
-//        if(requestCode==CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
-//            CropImage.ActivityResult activityResult = CropImage.getActivityResult(data);
-//
-//            if(requestCode == RESULT_OK){
-//                Uri resultUri = activityResult.getUri();
-//
-//                StorageReference filePath = userProfilePicRef.child(currentUserID + ".jpg");
-//
-//                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                        if(task.isSuccessful()){
-//                            Toast.makeText(SignupActivity.this, "Profile Image Saved to storage", Toast.LENGTH_SHORT).show();
-//
-//                            final String downloadImageURL = task.getResult().getStorage().toString();
-//
-//                            databaseUserRef.child("Profile Image").setValue(downloadImageURL)
-//                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if (task.isSuccessful()){
-//                                        Toast.makeText(SignupActivity.this, "Profile Image Saved to database", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                    else{
-//                                        String message = task.getException().getMessage();
-//                                        Toast.makeText(SignupActivity.this, "Error occured: " + message, Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//                            });
-//                        }
-//                        else
-//                        {
-//                            Toast.makeText(SignupActivity.this, "Error occured: Image can't be cropped. Please try again", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//            }
-//        }
-//    }
 
     private void CreateAuthentication() {
 
 
         Email = UserEmail.getText().toString();
         Name = UserFullName.getText().toString();
+        Nickname = UserNickname.getText().toString();
         Password = UserPassword.getText().toString();
         ReenterPass = UserReenterPassword.getText().toString();
 
@@ -196,7 +128,8 @@ public class SignupActivity extends AppCompatActivity {
         databaseUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
 
         HashMap userMap = new HashMap();
-        userMap.put("Username", Name);
+        userMap.put("fullName", Name);
+        userMap.put("Nickname", Nickname);
         userMap.put("Email", Email);
         databaseUserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
             @Override

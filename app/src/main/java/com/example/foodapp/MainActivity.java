@@ -53,56 +53,39 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         databaseUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-
+        mFirebaseAuth.signOut();
         UserEmail = findViewById(R.id.txtUserEmail);
         UserPassword = findViewById(R.id.txtPassword);
 
         signup = findViewById(R.id.btnSignup);
         signin = findViewById(R.id.btnSignin);
 
+        signup.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                SendUserToSignUp();
+
+            }
+        });
+
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //This comentted out code causes a crash, find out what it is 
-               // CheckUserExists();
                 SignIn();
             }
         });
 
-        signup.setOnClickListener(new View.OnClickListener(){
-        @Override
-        public void onClick(View view) {
-            SendUserToSignUp();
-        }
-        });
+
     };
 
-    private void CheckUserExists() {
-        final String currentUserID = mFirebaseAuth.getCurrentUser().getUid();
-
-        databaseUserRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Checks if record is not in database
-                if (!snapshot.hasChild(currentUserID)){
-                    SendUserToSignUp();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
+//
 
     private void SendUserToSignUp() {
         Intent setupIntent = new Intent(MainActivity.this, SignupActivity.class);
         setupIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(setupIntent);
         finish();
-    }
+   }
 
     void SignIn(){
         Email = UserEmail.getText().toString();
@@ -140,14 +123,14 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void SendUserToFeed(){
-        //Getting Rid of intent flag so that when an authenticated user whos taken to the feed screen clicks back button on phone,
-        // they cannot return to the setup activity as the setup activity would have been removed from the stack.
-        Intent feedIntent = new Intent(MainActivity.this, FoodFeed.class);
-        feedIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(feedIntent);
-        finish();
-    }
+//    private void SendUserToFeed(){
+//        //Getting Rid of intent flag so that when an authenticated user whos taken to the feed screen clicks back button on phone,
+//        // they cannot return to the setup activity as the setup activity would have been removed from the stack.
+//        Intent feedIntent = new Intent(MainActivity.this, FoodFeed.class);
+//        feedIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(feedIntent);
+//        finish();
+//    }
 
 
 //onCreate method code /////////////////////////////////////////////////////

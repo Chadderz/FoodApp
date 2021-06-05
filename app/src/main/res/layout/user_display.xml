@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/Grey"
+    android:layout_margin="5dp">
+
+    <TextView
+        android:id="@+id/all_user_profile_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Full Name"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/user_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nickname"
+        android:textColor="@color/white"
+        android:textSize="18sp">
+
+    </TextView>
+</LinearLayout>
