@@ -46,11 +46,7 @@ public class Profile extends AppCompatActivity {
                         return true;
                     case R.id.profileFood:
                         return true;
-                    case R.id.searchFood:
-                        startActivity(new Intent (getApplicationContext()
-                                , SearchPost.class));
-                        overridePendingTransition(0, 0);
-                        return true;
+
                 }
                 return false;
             }

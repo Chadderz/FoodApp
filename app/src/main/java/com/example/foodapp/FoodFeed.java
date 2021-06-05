@@ -103,11 +103,7 @@ public class FoodFeed extends AppCompatActivity {
                                 , Profile.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.searchFood:
-                        startActivity(new Intent (getApplicationContext()
-                                , SearchPost.class));
-                        overridePendingTransition(0, 0);
-                        return true;
+
                 }
                 return false;
             }
@@ -137,11 +133,11 @@ public class FoodFeed extends AppCompatActivity {
 
                 holder.userID.setText(model.getUserName());
                 holder.instruction.setText(model.getInstructions());
-                holder.ingredients.setText(model.getIngredients());
                 holder.overRating.setText("Rating: " + model.getOverallRating());
                 holder.title.setText(model.getTitle());
                 holder.date.setText("   " + model.getDate());
                 holder.time.setText("   " + model.getTime());
+                holder.ingredients.setText(model.getIngredients());
             }
 
             @NonNull

@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodApp">
         <activity android:name=".Profile"></activity>
-        <activity android:name=".SearchPost" />
         <activity android:name=".SignupActivity" /> <!-- //<activity -->
         <activity android:name=".FoodFeed" />
         <activity android:name=".CreatePost" />
