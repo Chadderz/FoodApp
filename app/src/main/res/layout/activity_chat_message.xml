@@ -40,7 +40,7 @@
             ></TextView>
 
         <TextView
-            android:id="@+id/custom_user_last_seen"
+            android:id="@+id/custom_Nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/custom_profile_image"
@@ -48,7 +48,7 @@
 
             android:layout_marginStart="3dp"
             android:layout_marginTop="-24dp"
-            android:text="Last Seen"
+            android:text="Nickname"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"></TextView>
@@ -63,7 +63,7 @@
         android:layout_below="@id/layoutBelow"/>
 
     <EditText
-        android:id="@+id/message_input"
+        android:id="@+id/message_friend_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -76,10 +76,10 @@
         ></EditText>
 
     <ImageButton
-        android:id="@+id/post_comment_btn"
+        android:id="@+id/post_message_btn"
         android:layout_width="55dp"
         android:layout_height="52dp"
-        android:layout_alignBottom="@+id/message_input"
+        android:layout_alignBottom="@+id/message_friend_input"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"

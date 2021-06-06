@@ -112,6 +112,20 @@ public class CurrentFriends extends AppCompatActivity {
                             holder.userNickname.setText(profileuserNickname);
                             Picasso.get().load(userImage).placeholder(R.drawable.profile_image).into(holder.profileImage);
 
+
+                            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v)
+                                {
+                                    Intent chatIntent = new Intent(CurrentFriends.this, ChatMessage.class);
+                                    chatIntent.putExtra("visit_userID", userID);
+                                    chatIntent.putExtra("visit_userName", profileuserName);
+                                    chatIntent.putExtra("visit_image", userImage);
+                                    chatIntent.putExtra("visit_userNickname", profileuserNickname);
+                                    startActivity(chatIntent);
+                                }
+                            });
+
                         }
                         else {
                             String profileuserName = snapshot.child("fullName").getValue().toString();
@@ -120,6 +134,16 @@ public class CurrentFriends extends AppCompatActivity {
 
                             holder.username.setText(profileuserName);
                             holder.userNickname.setText(profileuserNickname);
+
+                            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v)
+                                {
+                                    Intent chatIntent = new Intent(CurrentFriends.this, ChatMessage.class);
+                                    chatIntent.putExtra("visit_userID", userID);
+                                    startActivity(chatIntent);
+                                }
+                            });
                         }
                     }
 
