@@ -7,16 +7,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile extends AppCompatActivity {
 
@@ -27,6 +37,7 @@ public class Profile extends AppCompatActivity {
     private EditText searchInput;
 
     private RecyclerView searchResultList;
+    private DatabaseReference UsersRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +56,8 @@ public class Profile extends AppCompatActivity {
         searchInput = findViewById(R.id.searchFriendBox);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,11 +80,22 @@ public class Profile extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext()
+                        startActivity(new Intent (getApplicationContext()
                                 , FoodFeed.class));
                         overridePendingTransition(0, 0);
                         return true;
+                    case R.id.currentfriends:
+                        startActivity(new Intent (getApplicationContext()
+                                , CurrentFriends.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.friendRequests:
+                        startActivity(new Intent (getApplicationContext()
+                                , FriendRequests.class));
+                        overridePendingTransition(0, 0);
+                        return true;
                     case R.id.profileFood:
+
                         return true;
 
                 }
@@ -82,13 +106,60 @@ public class Profile extends AppCompatActivity {
 
     private void SearchFriends(String searchResult) {
 
-        FirebaseRecyclerAdapter<FindPeople, >
+        Toast.makeText(this, "Searching...", Toast.LENGTH_LONG).show();
+
+        Query searchPeopleFriends = UsersRef.orderByChild("fullName").startAt(searchResult).endAt(searchResult + "\uf8ff");
+
+        FirebaseRecyclerOptions<FindPeople> options = new FirebaseRecyclerOptions.Builder<FindPeople>()
+                .setQuery(searchPeopleFriends, FindPeople.class)
+                .build();
+
+        FirebaseRecyclerAdapter<FindPeople, FindPeopleViewHolder> adapter = new FirebaseRecyclerAdapter<FindPeople, FindPeopleViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull FindPeopleViewHolder holder, int position, @NonNull FindPeople model) {
+                holder.userName.setText("Name: " + model.getFullName());
+                holder.userNickname.setText("Nickname: " + model.getNickname());
+                Picasso.get().load(model.getImage()).into(holder.profileImage);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String accessingUserID = getRef(position).getKey();
+
+                        Intent profileIntent = new Intent(Profile.this, profileLayout.class);
+                        profileIntent.putExtra("accessingUserID", accessingUserID);
+                        startActivity(profileIntent);
+                    }
+                });
+            }
+
+            @NonNull
+            @Override
+            public FindPeopleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_display, parent, false);
+                FindPeopleViewHolder viewHolder = new FindPeopleViewHolder(view);
+                return viewHolder;
+            }
+        };
+        searchResultList.setAdapter(adapter);
+        adapter.startListening();
+
     }
 
     public static class FindPeopleViewHolder extends RecyclerView.ViewHolder{
+
+        TextView userName, userNickname;
+
+        CircleImageView profileImage;
+
         public FindPeopleViewHolder(@NonNull View itemView)
         {
             super(itemView);
+
+            userName = itemView.findViewById(R.id.all_user_profile_name);
+            userNickname = itemView.findViewById(R.id.nick_name);
+            profileImage = itemView.findViewById(R.id.setProfileImage);
+
         }
     }
 

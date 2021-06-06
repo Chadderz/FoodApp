@@ -1,28 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:background="@color/Grey"
-    android:layout_margin="5dp">
+    android:layout_margin="10dp">
 
-    <TextView
-        android:id="@+id/all_user_profile_name"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/setProfileImage"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/profile_image"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"
+        />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User Full Name"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold"></TextView>
+        android:orientation="vertical"
+        android:layout_margin="5dp">
 
-    <TextView
-        android:id="@+id/user_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nickname"
-        android:textColor="@color/white"
-        android:textSize="18sp">
+        <TextView
+            android:id="@+id/all_user_profile_name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="User Full Name"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"></TextView>
 
-    </TextView>
+
+        <TextView
+            android:id="@+id/nick_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nickname"
+            android:textColor="@color/white"
+            android:textSize="18sp"></TextView>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/request_accept_Button"
+                android:layout_width="wrap_content"
+                android:text="Accept"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/Green"
+                android:textAllCaps="false"
+                android:visibility="invisible"></Button>
+
+            <Button
+                android:id="@+id/request_reject_Button"
+                android:text="Reject"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textAllCaps="false"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="30dp"
+                android:background="@color/Red"
+                android:visibility="invisible"></Button>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
 </LinearLayout>

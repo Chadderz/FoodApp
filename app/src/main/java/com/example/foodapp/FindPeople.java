@@ -2,13 +2,14 @@ package com.example.foodapp;
 
 public class FindPeople {
 
-    private String Nickname, fullName;
+    private String Nickname, fullName, image;
 
     public FindPeople(){}
 
-    public FindPeople(String nickname, String fullName) {
+    public FindPeople(String nickname, String fullName, String image) {
         Nickname = nickname;
         this.fullName = fullName;
+        this.image = image;
     }
 
 
@@ -27,5 +28,13 @@ public class FindPeople {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -10,12 +10,14 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:noHistory="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:noHistory="true"
         android:theme="@style/Theme.FoodApp">
-        <activity android:name=".Profile"></activity>
-         <!-- //<activity -->
+        <activity android:name=".FriendRequests"></activity>
+        <activity android:name=".CurrentFriends" />
+        <activity android:name=".profileLayout" />
+        <activity android:name=".Profile" /> <!-- //<activity -->
         <activity android:name=".FoodFeed" />
         <activity android:name=".CreatePost" />
         <activity android:name=".SignupActivity" />

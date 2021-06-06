@@ -98,6 +98,16 @@ public class FoodFeed extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.home:
                         return true;
+                    case R.id.currentfriends:
+                        startActivity(new Intent (getApplicationContext()
+                                , CurrentFriends.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.friendRequests:
+                    startActivity(new Intent (getApplicationContext()
+                            , FriendRequests.class));
+                    overridePendingTransition(0, 0);
+                    return true;
                     case R.id.profileFood:
                         startActivity(new Intent (getApplicationContext()
                                 , Profile.class));

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profileLayout"
+    android:background="@drawable/background_profile">
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/visitProfileImage"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/profile_image"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"
+        android:layout_marginTop="110dp"
+        />
+
+    <TextView
+        android:id="@+id/visit_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Profile Name"
+        android:layout_below="@id/visitProfileImage"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:textAllCaps="false"
+        android:textSize="28sp"
+        android:textStyle="bold"
+
+        android:textAlignment="center"
+        ></TextView>
+    <TextView
+        android:id="@+id/visit_user_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User nickname"
+        android:layout_below="@id/visit_user_name"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="25dp"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="bold"
+
+        android:textAlignment="center"
+        ></TextView>
+
+    <Button
+        android:id="@+id/send_friend_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/visit_user_nickname"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="Send Friend Request"
+        android:textAllCaps="false"
+
+        ></Button>
+
+    <Button
+        android:id="@+id/reject_friend_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/send_friend_request"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="Reject Friend Request"
+        android:textAllCaps="false"
+        android:visibility="invisible"
+
+        ></Button>
+
+</RelativeLayout>
+
+
+

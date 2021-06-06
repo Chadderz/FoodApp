@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.base.MoreObjects;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,6 +32,9 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.sql.DatabaseMetaData;
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import io.grpc.Context;
+
 public class SignupActivity extends AppCompatActivity {
 
     public Boolean validInput;
@@ -45,6 +49,11 @@ public class SignupActivity extends AppCompatActivity {
     private DatabaseReference databaseUserRef;
     private StorageReference userProfilePicRef;
 
+
+    private CircleImageView userProfileImage;
+
+    private static final int galleryPick = 1;
+
     String currentUserID;
 
     private static final int Photo_Picked = 1;
@@ -57,11 +66,24 @@ public class SignupActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
+        userProfilePicRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
+
         UserEmail = findViewById(R.id.txtEmail);
         UserFullName = findViewById(R.id.txtName);
         UserPassword = findViewById(R.id.txtPassword);
         UserReenterPassword = findViewById(R.id.txtReenterPass);
         UserNickname = findViewById(R.id.txtNickname);
+        userProfileImage = findViewById(R.id.setProfileImage);
+
+        userProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gallaryIntent = new Intent();
+                gallaryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                gallaryIntent.setType("image/*");
+                startActivityForResult(gallaryIntent, galleryPick);
+            }
+        });
        // selectImageButton = findViewById(R.id.imageButton);
         
         //userProfilePicRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
@@ -77,6 +99,43 @@ public class SignupActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == galleryPick & resultCode == RESULT_OK && data != null){
+            Uri ImageURI = data.getData();
+
+            CropImage.activity(ImageURI).setGuidelines(CropImageView.Guidelines.ON).setAspectRatio(1,1).start(this);
+
+            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+                if (resultCode == RESULT_OK){
+                    Uri resultUri = result.getUri();
+
+                    StorageReference filePath = userProfilePicRef.child(currentUserID + ".jpg");
+
+                    filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(SignupActivity.this, "Profile Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                String message = task.getException().toString();
+                                Toast.makeText(SignupActivity.this, "Error occured: " + message, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+
+                }
+
+            }
+        }
     }
 
     private void CreateAuthentication() {
@@ -131,6 +190,7 @@ public class SignupActivity extends AppCompatActivity {
         userMap.put("fullName", Name);
         userMap.put("Nickname", Nickname);
         userMap.put("Email", Email);
+        userMap.put("image", "");
         databaseUserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {

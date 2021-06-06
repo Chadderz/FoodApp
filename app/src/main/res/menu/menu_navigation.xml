@@ -9,6 +9,20 @@
         android:enabled="true"/>
 
     <item
+        android:id="@+id/currentfriends"
+        android:title="Current Friends"
+        android:icon="@drawable/contacts"
+        android:visible="true"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/friendRequests"
+        android:title="Friend Requests"
+        android:icon="@drawable/friend_request"
+        android:visible="true"
+        android:enabled="true"/>
+
+    <item
         android:id="@+id/profileFood"
         android:title="Profile"
         android:icon="@drawable/profile"
