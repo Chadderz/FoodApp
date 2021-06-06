@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatMessage">
+
+    <RelativeLayout
+        android:id="@+id/layoutBelow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_700">
+
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/custom_profile_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/profile_image"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:cropToPadding="true"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/custom_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="3dp"
+            android:text="Display Username"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/custom_user_last_seen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/custom_profile_image"
+            android:layout_alignParentStart="true"
+
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="-24dp"
+            android:text="Last Seen"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"></TextView>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_of_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_below="@id/layoutBelow"/>
+
+    <EditText
+        android:id="@+id/message_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="55dp"
+        android:padding="15dp"
+        android:hint="Write a message here"
+        android:inputType="textMultiLine"
+
+        ></EditText>
+
+    <ImageButton
+        android:id="@+id/post_comment_btn"
+        android:layout_width="55dp"
+        android:layout_height="52dp"
+        android:layout_alignBottom="@+id/message_input"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:background="@color/Grey"
+        android:src="@drawable/send_comment"></ImageButton>
+
+</RelativeLayout>

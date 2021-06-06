@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.facebook.login.LoginManager;
@@ -57,6 +60,8 @@ public class FoodFeed extends AppCompatActivity {
     private DatabaseReference databaseUserRef;
     private DatabaseReference ref;
 
+    private ImageButton CommentPost;
+
     String userFullName;
     String userFullNameUsingID = "No Name";
 
@@ -69,6 +74,8 @@ public class FoodFeed extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         databasePostRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         ref = FirebaseDatabase.getInstance().getReference();
+
+
 
 
         listOfPosts = findViewById(R.id.post_list);
@@ -139,7 +146,7 @@ public class FoodFeed extends AppCompatActivity {
                 {
             @Override
             protected void onBindViewHolder(@NonNull PostViewHolder holder, int position, @NonNull PostHelper model) {
-
+                //String accessingPostID = getRef(position).getKey();
 
                 holder.userID.setText(model.getUserName());
                 holder.instruction.setText(model.getInstructions());
@@ -149,14 +156,29 @@ public class FoodFeed extends AppCompatActivity {
                 holder.time.setText("   " + model.getTime());
                 holder.ingredients.setText(model.getIngredients());
 
+                String accessingPostID = getRef(position).getKey();
+
+                holder.commentPost.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //String accessingPostID = getRef(position).getKey();
+
+
+
+                        Intent postCommentIntent = new Intent(FoodFeed.this, PostComments.class);
+                        postCommentIntent.putExtra("accessingPostID", accessingPostID);
+                        startActivity(postCommentIntent);
+                    }
+                });
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String accessingPostID = getRef(position).getKey();
+
 
                         Intent postClickIntent = new Intent(FoodFeed.this, ClickPost.class);
                         postClickIntent.putExtra("accessingPostID", accessingPostID);
+                        Toast.makeText(FoodFeed.this, "Post Code" + accessingPostID, Toast.LENGTH_SHORT).show();
                         startActivity(postClickIntent);
                     }
                 });
@@ -179,6 +201,7 @@ public class FoodFeed extends AppCompatActivity {
 
     public static class PostViewHolder extends  RecyclerView.ViewHolder{
         TextView userID, instruction, overRating, title, date, time, ingredients;
+        ImageButton commentPost;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -190,6 +213,7 @@ public class FoodFeed extends AppCompatActivity {
             title = itemView.findViewById(R.id.post_title);
             date = itemView.findViewById(R.id.post_date);
             time = itemView.findViewById(R.id.post_time);
+            commentPost = itemView.findViewById(R.id.Commentbtn);
         }
     }
 

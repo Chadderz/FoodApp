@@ -155,9 +155,27 @@
             android:text="post instructions"
             android:textColor="@android:color/black"
             android:textSize="16sp">
-
-
         </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <ImageButton
+                android:id="@+id/Commentbtn"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:baselineAlignBottom="false"
+
+                android:src="@drawable/comment">
+
+            </ImageButton>
+
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

@@ -75,16 +75,8 @@ public class SignupActivity extends AppCompatActivity {
         UserNickname = findViewById(R.id.txtNickname);
         userProfileImage = findViewById(R.id.setProfileImage);
 
-        userProfileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gallaryIntent = new Intent();
-                gallaryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                gallaryIntent.setType("image/*");
-                startActivityForResult(gallaryIntent, galleryPick);
-            }
-        });
-       // selectImageButton = findViewById(R.id.imageButton);
+
+        //selectImageButton = findViewById(R.id.imageButton);
         
         //userProfilePicRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
         //currentUserID = mFirebaseAuth.getCurrentUser().getUid();
@@ -101,42 +93,7 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == galleryPick & resultCode == RESULT_OK && data != null){
-            Uri ImageURI = data.getData();
-
-            CropImage.activity(ImageURI).setGuidelines(CropImageView.Guidelines.ON).setAspectRatio(1,1).start(this);
-
-            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
-
-                if (resultCode == RESULT_OK){
-                    Uri resultUri = result.getUri();
-
-                    StorageReference filePath = userProfilePicRef.child(currentUserID + ".jpg");
-
-                    filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(SignupActivity.this, "Profile Image uploaded successfully", Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                String message = task.getException().toString();
-                                Toast.makeText(SignupActivity.this, "Error occured: " + message, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-
-                }
-
-            }
-        }
-    }
 
     private void CreateAuthentication() {
 

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="101dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="120dp"
         android:layout_marginEnd="101dp"
         android:editable="true"
         android:ems="10"
@@ -25,7 +25,7 @@
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="101dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="101dp"
         android:ems="10"
@@ -98,27 +98,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/setProfileImage"
-        android:layout_width="152dp"
-        android:layout_height="138dp"
-        android:layout_marginStart="101dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="101dp"
-        android:src="@drawable/profile_image"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnEnter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtReenterPass" />
-
     <Button
         android:id="@+id/btnEnter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="101dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="101dp"
         android:layout_marginBottom="40dp"
         android:text="Enter Credentials"
@@ -126,6 +111,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setProfileImage" />
+        app:layout_constraintTop_toBottomOf="@+id/txtReenterPass" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

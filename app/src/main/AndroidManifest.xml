@@ -14,7 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodApp">
-        <activity android:name=".ClickPost"></activity>
+        <activity android:name=".ChatMessage"></activity>
+        <activity android:name=".PostComments" />
+        <activity android:name=".ProfilePicture" />
+        <activity android:name=".ClickPost" />
         <activity android:name=".FriendRequests" />
         <activity android:name=".CurrentFriends" />
         <activity android:name=".profileLayout" />
