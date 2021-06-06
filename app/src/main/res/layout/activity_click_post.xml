@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreatePost">
+    tools:context=".ClickPost">
 
     <EditText
         android:id="@+id/txtIngredientsData"
@@ -16,7 +16,7 @@
         android:ems="10"
         android:gravity="top|left"
         android:inputType="textPersonName"
-        android:text="Enter Recipe Ingredients"
+        android:text="Ingredients"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,13 +27,13 @@
         android:layout_width="351dp"
         android:layout_height="207dp"
         android:layout_marginStart="38dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:gravity="top|left"
         android:inputType="textPersonName"
-        android:text="Enter Recipe Instructions"
+        android:text="Instructions"
         app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
@@ -79,17 +79,30 @@
 
     <Button
         android:id="@+id/btnUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="159dp"
+        android:layout_width="124dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginBottom="64dp"
-        android:text="Submit"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:text="Update Post"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/InstructionsData" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="124dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="40dp"
+        android:text="Delete Post"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnUpdate"
         app:layout_constraintTop_toBottomOf="@+id/InstructionsData" />
 
     <EditText
@@ -101,8 +114,9 @@
         android:layout_marginEnd="42dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Enter Recipe Title"
+        android:text="Recipe Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

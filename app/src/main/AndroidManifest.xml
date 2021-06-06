@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodApp">
-        <activity android:name=".FriendRequests"></activity>
+        <activity android:name=".ClickPost"></activity>
+        <activity android:name=".FriendRequests" />
         <activity android:name=".CurrentFriends" />
         <activity android:name=".profileLayout" />
         <activity android:name=".Profile" /> <!-- //<activity -->

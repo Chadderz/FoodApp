@@ -45,11 +45,11 @@ public class CreatePost extends AppCompatActivity {
         current_user_id = mFirebaseAuth.getCurrentUser().getUid();
 
 
-        title = findViewById(R.id.txtRecipeTitle);
-        instructions = findViewById(R.id.txtInstructions);
-        ingredients = findViewById(R.id.txtIngredients);
+        title = findViewById(R.id.RecipeTitleData);
+        instructions = findViewById(R.id.InstructionsData);
+        ingredients = findViewById(R.id.txtIngredientsData);
 
-        submit = findViewById(R.id.btnSubmit);
+        submit = findViewById(R.id.btnUpdate);
 
         databaseUserRef = FirebaseDatabase.getInstance().getReference().child("Users");
         databasePostRef = FirebaseDatabase.getInstance().getReference().child("Posts");

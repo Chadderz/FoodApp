@@ -148,6 +148,18 @@ public class FoodFeed extends AppCompatActivity {
                 holder.date.setText("   " + model.getDate());
                 holder.time.setText("   " + model.getTime());
                 holder.ingredients.setText(model.getIngredients());
+
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String accessingPostID = getRef(position).getKey();
+
+                        Intent postClickIntent = new Intent(FoodFeed.this, ClickPost.class);
+                        postClickIntent.putExtra("accessingPostID", accessingPostID);
+                        startActivity(postClickIntent);
+                    }
+                });
             }
 
             @NonNull
