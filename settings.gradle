@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':CircleImageView-master:circleimageview'
 rootProject.name = "FoodApp"

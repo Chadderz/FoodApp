@@ -11,6 +11,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/CircleImageView-master" />
+            <option value="$PROJECT_DIR$/CircleImageView-master/circleimageview" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

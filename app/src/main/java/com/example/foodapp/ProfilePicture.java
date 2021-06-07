@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class ProfilePicture extends AppCompatActivity {
 
